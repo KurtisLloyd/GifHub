@@ -18,8 +18,7 @@
                     <!-- Use your own application name -->
                     <appName>obscure-caverns-65909</appName>
                     <processTypes>
-                        <!-- Tell Heroku how to launch your application -->
-                        <!-- You might have to remove the ./ in front   -->
+
                         <web>java -cp target/classes:target/dependency/* Main.Main</web>
                     </processTypes>
                 </configuration>
@@ -64,6 +63,11 @@
     <dependencies>
         <dependency>
             <groupId>com.sparkjava</groupId>
+            <artifactId>spark-template-freemarker</artifactId>
+            <version>2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sparkjava</groupId>
             <artifactId>spark-core</artifactId>
             <version>2.3</version>
         </dependency>
@@ -71,6 +75,16 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>5.1.0.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.22</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sparkjava</groupId>
+            <artifactId>spark-template-mustache</artifactId>
+            <version>2.3</version>
         </dependency>
     </dependencies>
 
