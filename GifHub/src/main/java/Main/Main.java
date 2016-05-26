@@ -13,6 +13,7 @@ public class Main {
 
     public static void main(String [] args){
         port(8082);
+        staticFileLocation("loginbg.jpg");
         String layout = "layout.vtl";
 
       // HibernateQuery hibernateQuery = new HibernateQuery();
