@@ -31,7 +31,6 @@ public class HibernateQuery {
 
     public void makeTransaction(){
         session.beginTransaction();
-
     }
 
     public void endTrasaction(){
@@ -51,7 +50,6 @@ public class HibernateQuery {
         String hql = s;
         Query query = getSession().createQuery(hql);
         List results = query.list();
-
         return results;
     }
 

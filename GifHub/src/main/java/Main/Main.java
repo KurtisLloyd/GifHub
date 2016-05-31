@@ -2,34 +2,43 @@ package Main; /**
  * Created by Kurtis Lloyd on 5/3/2016.
  */
 import java.util.*;
+<<<<<<< HEAD
 
+=======
+import com.sun.org.apache.xpath.internal.operations.Mod;
+>>>>>>> 03e83a8045f342c98ffa172f50b3478716c705c6
 import spark.ModelAndView;
 import spark.Spark;
 import spark.template.velocity.VelocityTemplateEngine;
+<<<<<<< HEAD
 
 
+=======
+import javax.management.Query;
+>>>>>>> 03e83a8045f342c98ffa172f50b3478716c705c6
 import static spark.Spark.*;
-
 
 public class Main {
    static String FinalUsername;
 
     public static void main(String [] args){
+<<<<<<< HEAD
         port(8082);
         Spark.staticFileLocation("/Public");
+=======
+        port(4567);
+>>>>>>> 03e83a8045f342c98ffa172f50b3478716c705c6
         String layout = "layout.vtl";
         List<User> queryResults = new ArrayList<>();
 
        HibernateQuery hibernateQuery = new HibernateQuery();
-       queryResults = hibernateQuery.writeQuery("FROM User E WHERE E.id = 5");
+       queryResults = hibernateQuery.writeQuery("FROM User E WHERE E.id = 35 ");
             User EndUser = new User();
         for (User u: queryResults
              ) {
             EndUser = u;
         }
         final User endEnduser = EndUser;
-
-
 
        get("/", (request, response) -> {
            Map model = new HashMap();
@@ -46,7 +55,11 @@ public class Main {
             return new ModelAndView(model, layout);
         }, new VelocityTemplateEngine());
 
-
+        get("/usercreation", (request, response) -> {
+            Map model = new HashMap();
+            model.put("template", "usercreation.vtl");
+            return new ModelAndView(model, layout);
+        }, new VelocityTemplateEngine());
 
         get("/form", (request, response) -> {
             Map model = new HashMap();
@@ -54,13 +67,22 @@ public class Main {
             return new ModelAndView(model, layout);
         }, new VelocityTemplateEngine());
 
+        get("/userdetector", (request, response) -> {
+            UserCreation userCreation1 = new UserCreation();
+            Map model = new HashMap();
+            model.put("template", "userdetector.vtl");
+            boolean createUser = userCreation1.userCreated(request.queryParams("Username"), request.queryParams("Password"));
+            model.put("userCreated", createUser);
+            return new ModelAndView(model, layout);
+        }, new VelocityTemplateEngine());
+
         get("/detector", (request, response) -> {
+            Login login = new Login();
             Map<String, Object> model = new HashMap<String, Object>();
             model.put("template", "detector.vtl");
-            writeUserToDatabase(request.queryParams("Username"));
-            String Username =  getUsername(request.queryParams("Username"));
-            boolean isUsername =  loginUser(Username);
 
+            String Username = request.queryParams("Username");
+            boolean isUsername =  login.loginUser(Username);
             model.put("loginUser", isUsername);
             model.put("Username", Username);
             return new ModelAndView(model, layout);
@@ -68,48 +90,5 @@ public class Main {
 
     }
 
-
-    public static Boolean loginUser(String username) {
-
-        writeUserToDatabase(username);
-        HibernateQuery hibernateQuery = new HibernateQuery();
-        List<User> userList = hibernateQuery.writeQuery("From User E where E.Username =" + username);
-        User user = new User();
-        for (User u : userList
-                ) {
-            user = u;
-        }
-        final User finalUser = user;
-
-
-        if (username.equals(finalUser.getUserName())) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    public static String getUsername(String username) {
-        HibernateQuery hibernateQuery = new HibernateQuery();
-        List<User> userList = hibernateQuery.writeQuery("From User E where E.Username =" + username);
-        User user = new User();
-        for (User u : userList
-                ) {
-            user = u;
-        }
-        final User finalUser = user;
-
-        return finalUser.getUserName();
-    }
-        public static void writeUserToDatabase(String username) {
-        User user = new User();
-            user.setUserName(username);
-
-            HibernateQuery hibernate = new HibernateQuery();
-            hibernate.getSession().save(user);
-            hibernate.getSession().getTransaction().commit();
-            hibernate.endTrasaction();
-
-    }
-
-    }
+}
 
