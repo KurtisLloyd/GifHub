@@ -3,12 +3,10 @@ package Main; /**
  */
 import java.util.*;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import spark.ModelAndView;
+import spark.Spark;
 import spark.template.velocity.VelocityTemplateEngine;
 
-
-import javax.management.Query;
 
 import static spark.Spark.*;
 
@@ -18,7 +16,7 @@ public class Main {
 
     public static void main(String [] args){
         port(8082);
-        
+        Spark.staticFileLocation("/Public");
         String layout = "layout.vtl";
         List<User> queryResults = new ArrayList<>();
 
